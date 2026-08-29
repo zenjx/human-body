@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explore the Human Body</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;background:#fff8f5;color:#292929;overflow-x:hidden}
+.app{min-height:100vh}
+.slide{display:none;min-height:100vh;padding:55px 7%;animation:slideIn .45s ease}
+.slide.active{display:block}
+@keyframes slideIn{from{opacity:0;transform:translateX(35px)}to{opacity:1;transform:translateX(0)}}
+.home{background:linear-gradient(135deg,#ffe0e6,#e5f4ff);display:none;align-items:center;justify-content:center}
+.home.active{display:flex}
+.home-inner{max-width:1050px;width:100%;display:flex;align-items:center;justify-content:space-between;gap:50px}
+.hero{max-width:650px}.tag{display:inline-block;background:white;padding:8px 16px;border-radius:30px;font-size:14px;margin-bottom:18px}
+h1{font-size:clamp(44px,7vw,78px);line-height:1;margin-bottom:20px}
+.hero p{font-size:19px;margin-bottom:28px;color:#444}
+.hero-art{width:300px;height:390px;border-radius:150px 150px 90px 90px;background:#ffffffaa;display:flex;align-items:center;justify-content:center;font-size:170px;box-shadow:0 20px 60px #00000012}
+.primary,.secondary,.back{border:0;border-radius:28px;padding:13px 22px;font-weight:bold;cursor:pointer;font-size:15px}
+.primary{background:#292929;color:white}.secondary{background:white;color:#292929}.back{background:#eee8e7;margin-bottom:20px}
+.title{text-align:center;margin:15px auto 35px;max-width:800px}.title h2{font-size:42px;margin-bottom:8px}.title p{color:#666;font-size:17px}
+.system-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;max-width:1100px;margin:auto}
+.system-card{background:white;border-radius:24px;padding:28px;box-shadow:0 8px 25px #0000000d;cursor:pointer;transition:.2s}
+.system-card:hover{transform:translateY(-6px);box-shadow:0 15px 30px #00000014}
+.system-icon{font-size:52px;margin-bottom:10px}.system-card h3{font-size:23px;margin-bottom:7px}.system-card p{color:#666}
+.system-header{display:flex;align-items:center;gap:18px;margin-bottom:20px}
+.system-header .big-icon{font-size:58px}.system-header h2{font-size:42px}.system-intro{max-width:850px;background:white;border-radius:22px;padding:25px;margin:0 auto 30px;box-shadow:0 7px 25px #0000000b}
+.components{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;max-width:1100px;margin:auto}
+.component{background:white;border-radius:22px;overflow:hidden;box-shadow:0 8px 25px #0000000d}
+.component img{width:100%;height:190px;object-fit:contain;background:#f7f3f1;padding:12px}
+.component-body{padding:20px}.component-body h3{font-size:21px;margin-bottom:7px}.component-body p{color:#666;font-size:15px}
+.nav-row{display:flex;justify-content:center;gap:12px;margin-top:35px;flex-wrap:wrap}
+.sources{max-width:1050px;margin:45px auto 0;background:#f0e8e6;border-radius:20px;padding:20px;color:#666;font-size:13px}
+.sources a{color:#555}
+.quiz-intro{max-width:760px;margin:0 auto 25px;background:white;border-radius:22px;padding:28px;text-align:center;box-shadow:0 8px 25px #0000000d}
+.quiz-card{max-width:760px;margin:auto;background:white;border-radius:25px;padding:34px;box-shadow:0 10px 30px #00000012}
+.progress{text-align:center;color:#777;font-weight:bold;margin-bottom:12px}
+.quiz-card h3{font-size:22px;margin-bottom:20px}
+.answers{display:grid;gap:11px}.answers button{padding:13px;border:1px solid #ddd;border-radius:14px;background:#fff8f5;text-align:left;cursor:pointer;font-size:15px}.answers button:hover{background:#ffe0e6}
+.answers button:disabled{cursor:default}.correct{background:#d9f5df!important;border-color:#73bd83!important}.wrong{background:#ffe0e0!important;border-color:#d88989!important}
+.feedback{margin-top:13px;font-weight:bold;min-height:24px}.next-wrap{text-align:center;margin:18px}.next-btn{background:#292929;color:white;border:0;border-radius:25px;padding:13px 24px;font-weight:bold;cursor:pointer}.next-btn:disabled{opacity:.4;cursor:not-allowed}
+.score{max-width:760px;margin:auto;background:#292929;color:white;text-align:center;border-radius:20px;padding:20px;font-size:19px}
+footer{text-align:center;color:#777;padding:20px}
+@media(max-width:750px){.home-inner{flex-direction:column;text-align:center}.hero-art{width:210px;height:270px;font-size:110px}.system-header h2{font-size:32px}}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HOME -->
+<section class="slide home active" id="home">
+<div class="home-inner">
+<div class="hero">
+<span class="tag">🧬 Educational Mini Website</span>
+<h1>Explore the Human Body</h1>
+<p>Welcome! Explore six major body systems, discover the organs and structures inside them, and test what you learned with an interactive quiz.</p>
+<button class="primary" onclick="go('systems')">Start Exploring →</button>
+</div>
+<div class="hero-art">🧍</div>
+</div>
+</section>
+
+<!-- SYSTEM MENU -->
+<section class="slide" id="systems">
+<button class="back" onclick="go('home')">← Home</button>
+<div class="title"><h2>Explore the 6 Body Systems</h2><p>Choose a system to open its own page and learn what is inside it.</p></div>
+<div class="system-grid">
+<div class="system-card" onclick="go('nervous')"><div class="system-icon">🧠</div><h3>Nervous System</h3><p>Controls and coordinates the body.</p></div>
+<div class="system-card" onclick="go('circulatory')"><div class="system-icon">❤️</div><h3>Circulatory System</h3><p>Moves blood around the body.</p></div>
+<div class="system-card" onclick="go('respiratory')"><div class="system-icon">🫁</div><h3>Respiratory System</h3><p>Helps us breathe and exchange gases.</p></div>
+<div class="system-card" onclick="go('digestive')"><div class="system-icon">🍎</div><h3>Digestive System</h3><p>Breaks down food and absorbs nutrients.</p></div>
+<div class="system-card" onclick="go('skeletal')"><div class="system-icon">🦴</div><h3>Skeletal System</h3><p>Supports and protects the body.</p></div>
+<div class="system-card" onclick="go('muscular')"><div class="system-icon">💪</div><h3>Muscular System</h3><p>Helps the body move and maintain posture.</p></div>
+</div>
+<div class="nav-row"><button class="secondary" onclick="go('quiz')">Take the Quiz →</button></div>
+</section>
+
+<!-- NERVOUS -->
+<section class="slide" id="nervous">
+<button class="back" onclick="go('systems')">← Body Systems</button>
+<div class="system-header"><span class="big-icon">🧠</span><h2>Nervous System</h2></div>
+<div class="system-intro"><b>What is it?</b><br>The nervous system receives information, processes it, and sends signals that help control and coordinate the body. It helps us sense the world, move, think, learn, and respond.</div>
+<div class="components">
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Brain_anatomy.svg" alt="Human brain anatomy"><div class="component-body"><h3>Brain</h3><p>The brain processes information and helps control thoughts, senses, movement, memory, and many body functions.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Human_spinal_cord_svg.svg" alt="Human spinal cord"><div class="component-body"><h3>Spinal Cord</h3><p>The spinal cord carries signals between the brain and much of the body and is involved in reflexes.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Neuron.svg" alt="Neuron illustration"><div class="component-body"><h3>Nerves</h3><p>Nerves carry messages between the central nervous system and other parts of the body.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Sensory_Pathways_III.png" alt="Sensory pathways diagram"><div class="component-body"><h3>Sensory Receptors</h3><p>Sensory receptors detect changes such as touch, pressure, temperature, light, and sound.</p></div></div>
+</div>
+<div class="nav-row"><button class="secondary" onclick="go('circulatory')">Next System →</button><button class="primary" onclick="go('quiz')">Take Quiz →</button></div>
+</section>
+
+<!-- CIRCULATORY -->
+<section class="slide" id="circulatory">
+<button class="back" onclick="go('systems')">← Body Systems</button>
+<div class="system-header"><span class="big-icon">❤️</span><h2>Circulatory System</h2></div>
+<div class="system-intro"><b>What is it?</b><br>The circulatory system moves blood throughout the body. It delivers oxygen and nutrients to cells and helps carry away waste products.</div>
+<div class="components">
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Heart_diagram-en.svg" alt="Human heart diagram"><div class="component-body"><h3>Heart</h3><p>A muscular organ that pumps blood through the blood vessels.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Red_blood_cells.svg" alt="Red blood cells"><div class="component-body"><h3>Blood</h3><p>A fluid tissue that transports oxygen, nutrients, hormones, and waste products.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Vessels.svg" alt="Arteries veins and capillaries"><div class="component-body"><h3>Blood Vessels</h3><p>Arteries, veins, and capillaries form pathways that carry blood around the body.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Capillary.svg" alt="Blood capillary diagram"><div class="component-body"><h3>Capillaries</h3><p>Tiny blood vessels where materials are exchanged between blood and nearby tissues.</p></div></div>
+</div>
+<div class="nav-row"><button class="secondary" onclick="go('respiratory')">Next System →</button></div>
+</section>
+
+<!-- RESPIRATORY -->
+<section class="slide" id="respiratory">
+<button class="back" onclick="go('systems')">← Body Systems</button>
+<div class="system-header"><span class="big-icon">🫁</span><h2>Respiratory System</h2></div>
+<div class="system-intro"><b>What is it?</b><br>The respiratory system brings oxygen into the body and removes carbon dioxide. It works closely with the circulatory system to deliver oxygen to cells.</div>
+<div class="components">
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Lungs_diagram_simple.svg" alt="Lungs diagram"><div class="component-body"><h3>Lungs</h3><p>The lungs contain airways and tiny air sacs where oxygen and carbon dioxide are exchanged.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Trachea_svg_hariadhi.svg" alt="Trachea"><div class="component-body"><h3>Trachea</h3><p>The trachea is the main airway that carries air toward the bronchi and lungs.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/201701_Trachea_and_Bronchial_tree.svg" alt="Bronchial tree"><div class="component-body"><h3>Bronchi</h3><p>The bronchi branch from the trachea and carry air into each lung.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Diaphragm.svg" alt="Diaphragm"><div class="component-body"><h3>Diaphragm</h3><p>The diaphragm is a major breathing muscle that changes chest volume to help move air in and out.</p></div></div>
+</div>
+<div class="nav-row"><button class="secondary" onclick="go('digestive')">Next System →</button></div>
+</section>
+
+<!-- DIGESTIVE -->
+<section class="slide" id="digestive">
+<button class="back" onclick="go('systems')">← Body Systems</button>
+<div class="system-header"><span class="big-icon">🍎</span><h2>Digestive System</h2></div>
+<div class="system-intro"><b>What is it?</b><br>The digestive system breaks food into smaller substances that the body can absorb and use. It also moves waste out of the body.</div>
+<div class="components">
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Stomach_diagram.svg" alt="Stomach diagram"><div class="component-body"><h3>Stomach</h3><p>The stomach mixes food with digestive juices and helps break it down.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Small_intestine.svg" alt="Small intestine"><div class="component-body"><h3>Small Intestine</h3><p>Most digestion and nutrient absorption takes place in the small intestine.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Intestine-diagram.svg" alt="Human intestine"><div class="component-body"><h3>Large Intestine</h3><p>The large intestine absorbs water and helps form solid waste.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Liver.svg" alt="Human liver"><div class="component-body"><h3>Liver</h3><p>The liver produces bile and performs many important processing and storage functions.</p></div></div>
+</div>
+<div class="nav-row"><button class="secondary" onclick="go('skeletal')">Next System →</button></div>
+</section>
+
+<!-- SKELETAL -->
+<section class="slide" id="skeletal">
+<button class="back" onclick="go('systems')">← Body Systems</button>
+<div class="system-header"><span class="big-icon">🦴</span><h2>Skeletal System</h2></div>
+<div class="system-intro"><b>What is it?</b><br>The skeletal system gives the body structure, protects many organs, and works with muscles to make movement possible.</div>
+<div class="components">
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/202403_human_anatomy_skeleton.svg" alt="Human skeleton"><div class="component-body"><h3>Bones</h3><p>Bones support the body, protect organs, and provide a framework for movement.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/WikiVoc-bone.svg" alt="Bone illustration"><div class="component-body"><h3>Bone Tissue</h3><p>Bone is living tissue that is strong enough to support the body while also changing and repairing itself.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Joint.svg" alt="Human joint"><div class="component-body"><h3>Joints</h3><p>Joints are places where bones meet and allow different types and ranges of movement.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Metacarpophalangeal_joint_illustration.svg" alt="Finger joint illustration"><div class="component-body"><h3>Cartilage & Joint Structures</h3><p>Cartilage helps cushion and support certain joints and allows smooth movement between bones.</p></div></div>
+</div>
+<div class="nav-row"><button class="secondary" onclick="go('muscular')">Next System →</button></div>
+</section>
+
+<!-- MUSCULAR -->
+<section class="slide" id="muscular">
+<button class="back" onclick="go('systems')">← Body Systems</button>
+<div class="system-header"><span class="big-icon">💪</span><h2>Muscular System</h2></div>
+<div class="system-intro"><b>What is it?</b><br>The muscular system helps the body move, maintain posture, move substances inside the body, and produce heat.</div>
+<div class="components">
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Muscular_system.svg" alt="Human muscular system"><div class="component-body"><h3>Skeletal Muscles</h3><p>Skeletal muscles attach to bones and allow voluntary movements such as walking and lifting.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/202107_Structure_of_skeletal_muscle.svg" alt="Skeletal muscle structure"><div class="component-body"><h3>Muscle Fibers</h3><p>Muscle fibers are specialized cells that contract to create force and movement.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Muscle_Tissue_%281%29.svg" alt="Muscle tissue types"><div class="component-body"><h3>Muscle Tissues</h3><p>The body has skeletal, smooth, and cardiac muscle tissues, each adapted to different jobs.</p></div></div>
+<div class="component"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tendon_%28PSF%29.svg" alt="Tendon illustration"><div class="component-body"><h3>Tendons</h3><p>Tendons are strong connective tissues that attach muscles to bones and help transfer muscle force.</p></div></div>
+</div>
+<div class="nav-row"><button class="primary" onclick="go('quiz')">Go to the Quiz →</button><button class="secondary" onclick="go('systems')">Back to Systems</button></div>
+</section>
+
+<!-- QUIZ -->
+<section class="slide" id="quiz">
+<button class="back" onclick="go('systems')">← Body Systems</button>
+<div class="title"><h2>Human Body Quiz 🧠</h2><p>Answer one question at a time. Your final score appears at the end.</p></div>
+<div class="quiz-card">
+<div class="progress" id="progress">Question 1 of 10</div>
+<div id="quizQuestion"></div>
+<div class="next-wrap"><button class="next-btn" id="nextBtn" onclick="nextQ()" disabled>Next Question →</button></div>
+</div>
+<div class="score" id="score">Score: 0 / 10</div>
+</section>
+
+<footer>Educational illustrations: Wikimedia Commons. See each source page for licensing and attribution details.</footer>
+</div>
+
+<script>
+const questions=[
+['Which organ is the main control center of the nervous system?',['Brain','Heart','Stomach','Lungs'],0],
+['What organ pumps blood throughout the body?',['Brain','Heart','Liver','Kidney'],1],
+['Which organs are mainly responsible for gas exchange during breathing?',['Kidneys','Stomach','Lungs','Bones'],2],
+['Where does most nutrient absorption take place?',['Mouth','Small intestine','Esophagus','Large intestine'],1],
+['What is one major function of the skeletal system?',['Support and protection','Digest food','Pump blood','Exchange gases'],0],
+['Which type of muscle makes up the walls of the heart?',['Bone tissue','Nervous tissue','Cardiac muscle','Cartilage'],2],
+['Which blood vessels carry blood away from the heart?',['Arteries','Veins','Nerves','Bronchi'],0],
+['Which structure carries air toward the lungs?',['Esophagus','Trachea','Stomach','Small intestine'],1],
+['Which system works closely with bones to produce body movement?',['Digestive system','Respiratory system','Muscular system','Circulatory system'],2],
+['How do the body systems normally work?',['Each system works alone','They work together','Only the brain is important','Only the heart is important'],1]
+];
+let current=0,score=0,answered=false;
+
+function go(id){
+document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+const target=document.getElementById(id); target.classList.add('active'); window.scrollTo(0,0);
+if(id==='quiz') renderQuiz();
+}
+function renderQuiz(){
+answered=false;
+document.getElementById('progress').textContent='Question '+(current+1)+' of '+questions.length;
+const q=questions[current];
+document.getElementById('quizQuestion').innerHTML='<h3>'+q[0]+'</h3><div class="answers">'+q[1].map((a,i)=>'<button onclick="answer(this,'+i+')">'+String.fromCharCode(65+i)+'. '+a+'</button>').join('')+'</div><div class="feedback" id="feedback"></div>';
+const next=document.getElementById('nextBtn'); next.disabled=true; next.textContent=current===questions.length-1?'See Final Score →':'Next Question →';
+}
+function answer(btn,i){
+if(answered)return; answered=true;
+const q=questions[current], correct=i===q[2];
+document.querySelectorAll('#quizQuestion .answers button').forEach(b=>b.disabled=true);
+btn.classList.add(correct?'correct':'wrong');
+if(correct){score++;document.getElementById('feedback').textContent='✓ Correct! Great job!';}
+else{document.getElementById('feedback').textContent='✗ Not quite. The correct answer is '+q[1][q[2]]+'.';}
+document.getElementById('score').textContent='Score: '+score+' / 10';
+document.getElementById('nextBtn').disabled=false;
+}
+function nextQ(){
+if(!answered)return;
+if(current===questions.length-1){
+const msg=score>=9?'Excellent work! 🎉':score>=7?'Great job! 👏':score>=5?'Good effort! Review the system pages and try again. 💪':'Keep learning! Review the system pages and try again. 📚';
+document.getElementById('progress').textContent='Quiz Complete!';
+document.getElementById('quizQuestion').innerHTML='<div style="text-align:center;padding:30px"><h2>🎉 You finished!</h2><p style="font-size:22px;margin:15px">Final Score: <b>'+score+' / 10</b></p><p>'+msg+'</p><button class="primary" style="margin-top:20px" onclick="restart()">Try Again ↻</button></div>';
+document.getElementById('nextBtn').style.display='none';
+return;
+}
+current++;renderQuiz();
+}
+function restart(){
+current=0;score=0;document.getElementById('nextBtn').style.display='inline-block';document.getElementById('score').textContent='Score: 0 / 10';renderQuiz();
+}
+</script>
+</body>
+</html>
